@@ -27,6 +27,14 @@ enum MyEnum {
     ENUM3
 }
 
+exception DivisionByZeroError {
+       1: string description
+}
+
+exception WrongTypeError {
+       1: string description
+}
+
 exception MyError {
     1: int error_code,
     2: string error_description
@@ -41,6 +49,9 @@ service MyFirstService {
 
     // multiply: return product of two integers
     int multiply(1: int number1, 2: int number2),
+
+    // divide
+    double divide(1:double number1, 2:double number2) throws (1:DivisionByZeroError zero_error, 2:WrongTypeError type_error),
 
     // get_log_size: return size of the log file; throws an exception when problem occurs
     int get_log_size(1: string filename) throws (1: MyError error),    
